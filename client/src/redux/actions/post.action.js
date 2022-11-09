@@ -49,8 +49,21 @@ export const commentPost = (postId, userId) => async (dispatch) => {
   dispatch({ type: POST_ACTION_TYPES.COMMENT_START });
   try {
     const postData = await postApi.creatComment(postId, userId);
-    dispatch({ type: POST_ACTION_TYPES.COMMENT_SUCCESS, payload: postData.data });
+    dispatch({
+      type: POST_ACTION_TYPES.COMMENT_SUCCESS,
+      payload: postData.data,
+    });
   } catch (error) {
     dispatch({ type: POST_ACTION_TYPES.COMMENT_FAIL });
   }
 };
+
+export const deletePostComment =
+  (id, user_id, comment_id) => async (dispatch) => {
+    try {
+      await postApi.deleteComment(id, user_id, comment_id);
+      dispatch({ type: POST_ACTION_TYPES.DELETE_COMMENT, payload: comment_id });
+    } catch (error) {
+      console.log(error);
+    }
+  };

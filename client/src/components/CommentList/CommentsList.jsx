@@ -1,15 +1,17 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import Moment from 'react-moment';
 import { UilTrash, UilPen } from "@iconscout/react-unicons";
 
 import * as userApi from "../../api/userRequests";
 import "./CommentsList.css";
-import { deleteComment } from '../../api/postsRequest';
+import { deletePostComment } from '../../redux/actions/post.action';
 
 
-const CommentsList = ({currentUserId, commentData, postId }) => {
+const CommentsList = ({ currentUserId, commentData, postId }) => {
   const { userId, comment, createdAt } = commentData;
-  const [commentUser, setCommentUser] = useState({})
+  const [commentUser, setCommentUser] = useState({});
+  const dispatch = useDispatch();
   useEffect(() => {
     let isMounted = false;
     const fetchUserComments = async () => {
@@ -24,8 +26,8 @@ const CommentsList = ({currentUserId, commentData, postId }) => {
     };
   }, [])
   const handleDelete = () => {
-    if(window.confirm("Deleting your comment.")){
-      deleteComment(postId, userId, commentData?._id)
+    if (window.confirm("Deleting your comment.")) {
+      dispatch(deletePostComment(postId, userId, commentData?._id))
       alert("Comment Deleted");
     }
   }

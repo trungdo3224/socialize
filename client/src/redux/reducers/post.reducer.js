@@ -40,9 +40,6 @@ const postReducer = (state = initialState, action) => {
       return { ...state };
     case POST_ACTION_TYPES.COMMENT_SUCCESS:
       const comments = action.payload;
-      // console.log(action.payload);
-      // console.log(comments);
-      // console.log(comments[0]);
       return {
         ...state,
         comments: [comments[0], ...state.comments],
@@ -52,6 +49,11 @@ const postReducer = (state = initialState, action) => {
     case POST_ACTION_TYPES.COMMENT_FAIL:
       return { ...state, error: true, loading: false };
 
+    case POST_ACTION_TYPES.DELETE_COMMENT:
+      return { 
+        ...state,
+        comments: [...state.comments].filter((comment) => comment._id !== action.payload)
+      };
     // Fetch
     case POST_ACTION_TYPES.RETREIVING_START:
       return { ...state, loading: true, error: false };
