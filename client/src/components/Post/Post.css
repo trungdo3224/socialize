@@ -1,0 +1,72 @@
+.Post {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+
+  background-color: var(--cardColor);
+  border-radius: 1rem;
+  gap: 1rem;
+  position: relative;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.postImg {
+  max-height: 50rem;
+  object-fit: contain;
+  border-radius: 0.5rem;
+}
+
+.postUserInfor {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  column-gap: 0.8rem;
+}
+
+.avatar {
+  width: 3rem;
+  height: 3rem;
+  object-fit: cover;
+  border-radius: 50%;
+  /* position: absolute; */
+}
+
+.postReact {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.postReactIcons {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.postUtils {
+  display: flex;
+  flex-direction: row;
+  gap: 1.5rem;
+}
+
+.commentUtils {
+  display: flex;
+  flex-direction: row;
+  gap: .5rem;
+}
+
+.comment-input {
+  width: 90%;
+  padding: 1rem .8rem;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  outline: none;
+  background-color: var(--inputColor);
+}
+
+.comment-section {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1.5rem;
+  margin: 2rem 0;
+}
