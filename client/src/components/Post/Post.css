@@ -1,4 +1,4 @@
-.Post {
+.post {
   display: flex;
   flex-direction: column;
   padding: 1rem;
@@ -11,13 +11,14 @@
   font-weight: 500;
 }
 
-.postImg {
+.post-img {
   max-height: 50rem;
   object-fit: contain;
   border-radius: 0.5rem;
+  cursor: pointer;
 }
 
-.postUserInfor {
+.post-user-infor {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -32,23 +33,23 @@
   /* position: absolute; */
 }
 
-.postReact {
+.post-react {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
 }
-.postReactIcons {
+.post-react-icons {
   display: flex;
   gap: 1.5rem;
 }
 
-.postUtils {
+.post-utils {
   display: flex;
   flex-direction: row;
   gap: 1.5rem;
 }
 
-.commentUtils {
+.comment-utils {
   display: flex;
   flex-direction: row;
   gap: .5rem;

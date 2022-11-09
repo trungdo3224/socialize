@@ -35,7 +35,7 @@ const CommentsList = ({ currentUserId, commentData, postId }) => {
     <div className='comment'>
       <span><b>{commentUser?.data?.firstname} {commentUser?.data?.lastname}</b></span>
       {userId === currentUserId &&
-        <div className='commentUtils'>
+        <div className='comment-utils'>
           <UilPen style={{ cursor: 'pointer' }} />
           <UilTrash style={{ cursor: 'pointer' }} onClick={handleDelete} />
         </div>
