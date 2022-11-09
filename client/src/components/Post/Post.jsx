@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link } from "react-router-dom";
 import Moment from 'react-moment';
 import { UilTrash, UilPen } from "@iconscout/react-unicons";
+import InputEmoji from 'react-input-emoji'
+
 
 import './Post.css'
 import Comment from '../../img/comment.png'
@@ -13,6 +15,7 @@ import { likePost } from '../../api/postsRequest';
 import * as userApi from "../../api/userRequests";
 import { commentPost, deletePost } from '../../redux/actions/post.action';
 import CommentsList from '../CommentList/CommentsList';
+
 
 
 export const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER;
@@ -69,7 +72,9 @@ const Post = ({ post }) => {
   // console.log(post);
   // console.log(data);
   // console.log(post.userId, data?._id, user._id);
-
+  const handleCommentEmo = (commentEmo) => {
+    setComment(commentEmo);
+  }
   return (
     <div className="Post">
       <div className="postUserInfor">
@@ -111,22 +116,25 @@ const Post = ({ post }) => {
       <span style={{ color: "var(--gray)", fontSize: '12px' }}>{likesCount} likes</span>
 
       <div className="detail">
-        {/* <span><b>{post.name}</b></span> */}
-        <input
-          type="text"
+
+        <InputEmoji
           placeholder="Write comment..."
-          className="comment-input"
           value={comment}
-          onChange={(e) => setComment(e.target.value)}
+          onChange={handleCommentEmo}
           onKeyDown={handleComment}
         />
-        {comments.lengt > 0 &&
+        {comments.length > 0 &&
           <div className="comment-section">
             {comments.map((comment, index) => (
-              <input key={index} postId={post._id} currentUserId={user._id} commentData={comment} />
+              <CommentsList
+                key={index}
+                postId={post._id}
+                currentUserId={user._id}
+                commentData={comment}
+              />
             ))}
           </div>
-          }
+        }
       </div>
     </div>
   )

@@ -30,19 +30,24 @@ const Chat = () => {
     const socket = io("http://localhost:8000");
 
     useEffect(() => {
+        let isMounted = false; // handle useEffect async possible data leak
         const getChats = async () => {
             try {
-                const { data } = await userChats(user._id);
-                setChats(data);
+                if (!isMounted) {
+                    const { data } = await userChats(user._id);
+                    setChats(data);
+                }
             } catch (error) {
                 console.log(error);
             }
         };
         getChats();
+        return () => { isMounted = true }
     }, [user._id]);
 
     // Connect to Socket.io
     useEffect(() => {
+
         socket.emit("add-new-user", user._id);
         socket.on("get-users", (users) => {
             setOnlineUsers(users);
