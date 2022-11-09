@@ -76,8 +76,8 @@ const Post = ({ post }) => {
     setComment(commentEmo);
   }
   return (
-    <div className="Post">
-      <div className="postUserInfor">
+    <div className="post">
+      <div className="post-user-infor">
 
         <Link to={`/profile/${data?._id}`}>
           <img
@@ -95,17 +95,24 @@ const Post = ({ post }) => {
       </div>
 
       <span>{post.desc}</span>
-      <img src={post.image ? `${process.env.REACT_APP_PUBLIC_FOLDER}${post.image}` : ""} alt="" className="postImg" />
+      <img
+        src={post.image ?
+          `${process.env.REACT_APP_PUBLIC_FOLDER}${post.image}` :
+          ""}
+        alt=""
+        className="post-img"
+        
+      />
 
 
-      <div className="postReact">
-        <div className='postReactIcons'>
+      <div className="post-react">
+        <div className='post-react-icons'>
           <img src={liked ? Heart : NotLike} alt="" style={{ cursor: 'pointer' }} onClick={handleLike} />
           <img src={Comment} alt="" style={{ cursor: 'pointer' }} />
           <img src={Share} alt="" style={{ cursor: 'pointer' }} />
         </div>
         {user._id === data?._id && (
-          <div className='postUtils'>
+          <div className='post-utils'>
             <UilPen style={{ cursor: 'pointer' }} />
             <UilTrash style={{ cursor: 'pointer' }} onClick={handleDelete} />
           </div>
