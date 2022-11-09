@@ -22,7 +22,9 @@ const User = ({ person, id }) => {
         <div className="follower">
 
             <div>
-                <img src={`${serverPublic}${person.profilePicture}`} alt="" className='follower-image' />
+                <img src={person.profilePicture ?
+                    `${serverPublic}${person.profilePicture}`:
+                    `${serverPublic}defaultProfile.png`} alt="" className='follower-image' />
                 <div className="name">
                     <Link to={`/profile/${id}`}>
                         <span><b>{person.firstname} {person.lastname}</b></span>
