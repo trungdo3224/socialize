@@ -23,13 +23,19 @@ const CommentsList = ({currentUserId, commentData, postId }) => {
       isMounted = true;
     };
   }, [])
+  const handleDelete = () => {
+    if(window.confirm("Deleting your comment.")){
+      deleteComment(postId, userId, commentData?._id)
+      alert("Comment Deleted");
+    }
+  }
   return (
     <div className='comment'>
       <span><b>{commentUser?.data?.firstname} {commentUser?.data?.lastname}</b></span>
       {userId === currentUserId &&
         <div className='commentUtils'>
           <UilPen style={{ cursor: 'pointer' }} />
-          <UilTrash style={{ cursor: 'pointer' }} onClick={() => deleteComment(postId, userId, commentData?._id)} />
+          <UilTrash style={{ cursor: 'pointer' }} onClick={handleDelete} />
         </div>
       }
       <span className='comment-text'>{comment}</span>
