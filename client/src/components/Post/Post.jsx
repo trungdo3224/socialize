@@ -21,15 +21,16 @@ import CommentsList from '../CommentList/CommentsList';
 export const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER;
 
 
-const Post = ({ post }) => {
+const Post = ({ post, comments }) => {
   const dispatch = useDispatch();
   const [postOf, setPostOf] = useState({});
   const { user } = useSelector((state) => state.authReducer.authData);
-  const comments = useSelector((state) => state.postReducer.comments);
   const [comment, setComment] = useState('');
 
   const [liked, setLiked] = useState(post.likes.includes(user._id));
   const [likesCount, setLikesCount] = useState(post.likes.length);
+
+  console.log(comments)
 
   const handleLike = () => {
     setLiked((isLiked) => !isLiked);
@@ -42,6 +43,7 @@ const Post = ({ post }) => {
       dispatch(commentPost(post._id, {
         userId: user._id,
         comment: comment,
+        postId: post._id
       }))
       setComment('');
     }
@@ -101,7 +103,7 @@ const Post = ({ post }) => {
           ""}
         alt=""
         className="post-img"
-        
+
       />
 
 
