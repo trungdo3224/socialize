@@ -12,11 +12,15 @@ const FollowersCard = () => {
 
     const [people, setPeople] = useState([]);
     useEffect(() => {
+        let isMounted = false
         const fetchPeopleData = async () => {
-            const { data } = await getAllUsers();
-            setPeople(data)
+            if (!isMounted) {
+                const { data } = await getAllUsers();
+                setPeople(data)
+            }
         }
         fetchPeopleData();
+        return () => { isMounted = true }
     }, [])
     return (
         <div className="followers-card">

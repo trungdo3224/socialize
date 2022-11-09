@@ -20,30 +20,44 @@ const ChatBox = ({ chat, currentUserId, setSendMessage, receivedMessage }) => {
     // fetching data for header
     useEffect(() => {
         const userId = chat?.members?.find((id) => id !== currentUserId);
+        let isMounted = false;
+
         const getUserData = async () => {
             try {
-                const { data } = await getUser(userId);
-                setUserData(data);
+                if (!isMounted) {
+
+                    const { data } = await getUser(userId);
+                    setUserData(data);
+                }
+
             } catch (error) {
                 console.log(error);
             }
         };
 
         if (chat !== null) getUserData();
+        return () => { isMounted = true }
+
     }, [chat, currentUserId]);
 
     // fetch messages
     useEffect(() => {
+        let isMounted = false;
+
         const fetchMessages = async () => {
             try {
-                const { data } = await getMessages(chat._id);
-                setMessages(data);
+                if (!isMounted) {
+                    const { data } = await getMessages(chat._id);
+                    setMessages(data);
+                }
             } catch (error) {
                 console.log(error);
             }
         };
 
         if (chat !== null) fetchMessages();
+        return () => { isMounted = true }
+
     }, [chat]);
 
 
