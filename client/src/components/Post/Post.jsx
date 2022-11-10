@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from "react-router-dom";
 import Moment from 'react-moment';
-import { UilTrash, UilPen } from "@iconscout/react-unicons";
+import { UilTrash } from "@iconscout/react-unicons";
 import InputEmoji from 'react-input-emoji'
 
 
@@ -30,7 +30,7 @@ const Post = ({ post, comments }) => {
   const [liked, setLiked] = useState(post.likes.includes(user._id));
   const [likesCount, setLikesCount] = useState(post.likes.length);
 
-  console.log(comments)
+  // console.log(comments)
 
   const handleLike = () => {
     setLiked((isLiked) => !isLiked);
@@ -51,7 +51,7 @@ const Post = ({ post, comments }) => {
 
   const handleDelete = () => {
     if (window.confirm("Are you sure you want to delete this post.")) {
-      console.log(post._id, user._id)
+      // console.log(post._id, user._id)
       deletePost(post._id, user._id);
       dispatch(deletePost(post._id, user._id))
     }
@@ -103,9 +103,12 @@ const Post = ({ post, comments }) => {
           ""}
         alt=""
         className="post-img"
-
       />
-
+      {post?.video && <video
+        src={`${post.video}`}
+        controls
+        className="post-img"
+      />}
 
       <div className="post-react">
         <div className='post-react-icons'>
@@ -115,7 +118,6 @@ const Post = ({ post, comments }) => {
         </div>
         {user._id === data?._id && (
           <div className='post-utils'>
-            <UilPen style={{ cursor: 'pointer' }} />
             <UilTrash style={{ cursor: 'pointer' }} onClick={handleDelete} />
           </div>
         )}
