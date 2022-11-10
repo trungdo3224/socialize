@@ -27,7 +27,7 @@ const Chat = () => {
     const [sendMessage, setSendMessage] = useState(null);
     const [receivedMessage, setReceivedMessage] = useState(null);
     // Get the chat in chat section
-    const socket = io("http://localhost:8000");
+    const socket = io(process.env.REACT_APP_BASE_SOCKET);
 
     useEffect(() => {
         let isMounted = false; // handle useEffect async possible data leak

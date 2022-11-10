@@ -24,7 +24,7 @@ export const registerUser = async (req, res) => {
         username: user.username,
         id: user._id,
       },
-      process.env.JWT_SEC,
+      `${process.env.JWT_SEC}`,
       { expiresIn: "24h" }
     );
     res.status(201).json({user, token});

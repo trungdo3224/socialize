@@ -59,7 +59,7 @@ const postReducer = (state = initialState, action) => {
       return { ...state, loading: true, error: false };
     case POST_ACTION_TYPES.RETREIVING_SUCCESS:
       const { data } = action.data;
-      return { ...state, posts: data, loading: false, error: false };
+      return { ...state, posts: data, comments:data.comments, loading: false, error: false };
     case POST_ACTION_TYPES.RETREIVING_FAIL:
       return { ...state, loading: false, error: true };
     default:

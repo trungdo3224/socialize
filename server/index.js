@@ -2,7 +2,6 @@ import express from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import cors from "cors";
 
 import authRoute from "./routes/authRoute.js";
 import userRoute from "./routes/userRoute.js";
@@ -14,7 +13,7 @@ import messageRoute from "./routes/messageRoute.js";
 const app = express();
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
-app.use(cors());
+
 
 // public images for client request
 app.use(express.static("public"));
@@ -23,9 +22,10 @@ app.use("/videos", express.static("videos"))
 
 dotenv.config();
 
-const PORT = process.env.PORT;
+const PORT = `${process.env.PORT}`;
+const DB_URI = "mongodb+srv://mernchatadmin:mernchatadmin@cluster0.xpgb9qe.mongodb.net/?retryWrites=true&w=majority"
 mongoose
-  .connect(process.env.DB_URI)
+  .connect(`${DB_URI}`)
   .then(
     app.listen(PORT, () => console.log(`Server listening on port: ${PORT}`))
   )
