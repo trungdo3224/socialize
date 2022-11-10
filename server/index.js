@@ -19,6 +19,7 @@ app.use(cors());
 // public images for client request
 app.use(express.static("public"));
 app.use("/images", express.static("images"));
+app.use("/videos", express.static("videos"))
 
 dotenv.config();
 
