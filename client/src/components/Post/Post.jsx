@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from "react-router-dom";
 import Moment from 'react-moment';
-import { UilTrash, UilPen } from "@iconscout/react-unicons";
+import { UilTrash } from "@iconscout/react-unicons";
 import InputEmoji from 'react-input-emoji'
 
 
@@ -115,7 +115,6 @@ const Post = ({ post, comments }) => {
         </div>
         {user._id === data?._id && (
           <div className='post-utils'>
-            <UilPen style={{ cursor: 'pointer' }} />
             <UilTrash style={{ cursor: 'pointer' }} onClick={handleDelete} />
           </div>
         )}

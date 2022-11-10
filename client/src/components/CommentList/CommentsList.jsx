@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import Moment from 'react-moment';
-import { UilTrash, UilPen } from "@iconscout/react-unicons";
+import { UilTrash } from "@iconscout/react-unicons";
 
 import * as userApi from "../../api/userRequests";
 import "./CommentsList.css";
@@ -36,7 +36,6 @@ const CommentsList = ({ currentUserId, commentData, postId }) => {
       <span><b>{commentUser?.data?.firstname} {commentUser?.data?.lastname}</b></span>
       {userId === currentUserId &&
         <div className='comment-utils'>
-          <UilPen style={{ cursor: 'pointer' }} />
           <UilTrash style={{ cursor: 'pointer' }} onClick={handleDelete} />
         </div>
       }
