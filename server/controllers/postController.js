@@ -5,8 +5,8 @@ import User from "../models/User.js";
 
 // Creat new Post
 export const createPost = async (req, res) => {
+  console.log(req.body)
   const newPost = new Post(req.body);
-
   try {
     await newPost.save();
     res.status(200).json(newPost);
