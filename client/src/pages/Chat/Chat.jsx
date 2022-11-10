@@ -14,13 +14,14 @@ import Conversation from '../../components/Conversation/Conversation';
 import { userChats } from '../../api/chatRequest';
 import ChatBox from '../../components/ChatBox/ChatBox';
 import { io } from "socket.io-client"
-import { useRef } from 'react';
+import { createChat } from '../../api/chatRequest';
+// import { useRef } from 'react';
 
 
 
 const Chat = () => {
     const { user } = useSelector((state) => state.authReducer.authData);
-
+    // console.log(user);
     const [chats, setChats] = useState([]);
     const [onlineUsers, setOnlineUsers] = useState([]);
     const [currentChat, setCurrentChat] = useState(null);
@@ -61,16 +62,20 @@ const Chat = () => {
         }
     }, [sendMessage]);
 
-
+    useEffect(() => {
+        user.following.map((following) =>
+            createChat(user._id, following)
+        )
+    },[])
     // Get the message from socket server
     useEffect(() => {
         socket.on("recieve-message", (data) => {
             console.log(data)
             setReceivedMessage(data);
         }
-
         );
     }, []);
+    
 
     const checkOnlineStatus = (chat) => {
         const chatMember = chat.members.find((member) => member !== user._id);

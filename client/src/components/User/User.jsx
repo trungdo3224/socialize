@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { followUser, unFollowUser } from '../../redux/actions/user.action';
 import { useState } from 'react';
 
-import { createChat } from '../../api/chatRequest';
 
 const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER;
 
@@ -14,7 +13,7 @@ const User = ({ person, id }) => {
 
     const dispatch = useDispatch();
     const handleFollow = () => {
-        createChat(user._id, person._id);
+        
         following
             ? dispatch(unFollowUser(person._id, user))
             : dispatch(followUser(person._id, user));
