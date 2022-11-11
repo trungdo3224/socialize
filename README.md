@@ -3,4 +3,4 @@
 
 #### Run `npm install` then `npm start` at both server and client root folder
 
-Website: [https://resonant-biscochitos-dc62ea.netlify.app](http://tinsy.me/LPqAHv)
+Website: http://tinsy.me/LPqAHv
