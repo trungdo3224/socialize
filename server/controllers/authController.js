@@ -45,7 +45,7 @@ export const loginUser = async (req, res) => {
             username: user.username,
             id: user._id,
           },
-          process.env.JWT_SEC,
+          "MERNSTACK",
           { expiresIn: "24h" }
         );
         res.status(200).json({user, token});

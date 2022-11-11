@@ -5,6 +5,7 @@ import {
   createPost,
   deleteComment,
   deletePost,
+  getCommentsByPostId,
   getPost,
   getTimelinePosts,
   likePost,
@@ -13,6 +14,7 @@ import {
 
 router.post("/", createPost);
 router.get("/:id", getPost);
+router.get("/:id/comment", getCommentsByPostId)
 router.put("/:id", updatePost);
 router.delete("/:id/:user_id", deletePost);
 router.put("/:id/like", likePost);

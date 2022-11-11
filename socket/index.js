@@ -1,8 +1,30 @@
-const io = require("socket.io")(8000, {
+const express = require("express");
+const app = express();
+const http = require("http");
+const { Server } = require("socket.io");
+const cors = require("cors");
+require("dotenv").config();
+
+
+app.use(express.json());
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+app.use(cors());
+
+
+const server = http.createServer(app);
+
+const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "https://resonant-biscochitos-dc62ea.netlify.app",
+    methods: ["GET", "POST"],
   },
 });
+
+
 
 let activeUsers = [];
 
@@ -29,11 +51,15 @@ io.on("connection", (socket) => {
   socket.on("send-message", (data) => {
     const { receiverId } = data;
     const user = activeUsers.find((user) => user.userId === receiverId);
-    console.log("Sending from socket to :", receiverId)
-    console.log("Data: ", data)
+    console.log("Sending from socket to :", receiverId);
+    console.log("Data: ", data);
     if (user) {
-      console.log(user.socketId)
+      console.log(user.socketId);
       io.to(user.socketId).emit("recieve-message", data);
     }
   });
 });
+
+server.listen(process.env.PORT, () =>
+  console.log("Socket listening on", process.env.PORT)
+);

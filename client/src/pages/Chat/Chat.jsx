@@ -14,7 +14,6 @@ import Conversation from '../../components/Conversation/Conversation';
 import { userChats } from '../../api/chatRequest';
 import ChatBox from '../../components/ChatBox/ChatBox';
 import { io } from "socket.io-client"
-import { useRef } from 'react';
 
 
 
@@ -27,7 +26,12 @@ const Chat = () => {
     const [sendMessage, setSendMessage] = useState(null);
     const [receivedMessage, setReceivedMessage] = useState(null);
     // Get the chat in chat section
-    const socket = io(process.env.REACT_APP_BASE_SOCKET);
+    const socket = io(process.env.REACT_APP_BASE_SOCKET, {
+        reconnection: true,
+        reconnectionDelay: 1000,
+        reconnectionDelayMax: 5000,
+        reconnectionAttempts: Infinity
+    });
 
     useEffect(() => {
         let isMounted = false; // handle useEffect async possible data leak

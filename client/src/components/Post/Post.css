@@ -12,8 +12,8 @@
 }
 
 .post-img {
-  max-height: 50rem;
-  object-fit: contain;
+  max-height: 30rem;
+  object-fit: cover;
   border-radius: 0.5rem;
   cursor: pointer;
 }

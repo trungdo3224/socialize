@@ -1,48 +1,42 @@
-import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import Moment from 'react-moment';
 import { UilTrash } from "@iconscout/react-unicons";
 
-import * as userApi from "../../api/userRequests";
 import "./CommentsList.css";
-import { deletePostComment } from '../../redux/actions/post.action';
+import { deletePostComment,getPostCommentsById } from '../../redux/actions/post.action';
 
 
-const CommentsList = ({ currentUserId, commentData, postId }) => {
-  const { userId, comment, createdAt } = commentData;
-  const [commentUser, setCommentUser] = useState({});
+const CommentsList = ({ currentUserId, commentsData, postId }) => {
   const dispatch = useDispatch();
-  useEffect(() => {
-    let isMounted = false;
-    const fetchUserComments = async () => {
-      const commentUserFetched = await userApi.getUser(userId);
-      if (!isMounted) {
-        setCommentUser(commentUserFetched);
-      }
-    }
-    fetchUserComments();
-    return () => {
-      isMounted = true;
-    };
-  }, [])
-  const handleDelete = () => {
-    if (window.confirm("Deleting your comment.")) {
-      dispatch(deletePostComment(postId, userId, commentData?._id))
-      alert("Comment Deleted");
-    }
-  }
-  return (
-    <div className='comment'>
-      <span><b>{commentUser?.data?.firstname} {commentUser?.data?.lastname}</b></span>
-      {userId === currentUserId &&
-        <div className='comment-utils'>
-          <UilTrash style={{ cursor: 'pointer' }} onClick={handleDelete} />
-        </div>
-      }
-      <span className='comment-text'>{comment}</span>
-      <span><Moment fromNow>{createdAt}</Moment></span>
 
-    </div>
+  return (
+    <>{commentsData?.map((comment, index) => {
+      if (comment.postId === postId) {
+        // fetchUserComments(comment)
+        return (
+          <div key={index} className='comment'>
+            <span><b>{comment.firstname} {comment.lastname}</b></span>
+            {comment.userId === currentUserId &&
+              <div className='comment-utils'>
+                <UilTrash style={{ cursor: 'pointer' }} onClick=
+                  {() => {
+                    if (window.confirm("Deleting your comment.")) {
+                      dispatch(deletePostComment(postId, comment.userId, comment._id))
+                      alert("Comment Deleted");
+                      dispatch(getPostCommentsById(postId))
+                    }
+                  }}
+                />
+              </div>
+            }
+            <span className='comment-text'>{comment.comment}</span>
+            <span><Moment fromNow>{comment.createdAt}</Moment></span>
+          </div>
+        )
+      }
+    })}
+
+    </>
   )
 }
 

@@ -5,7 +5,7 @@ import User from "../models/User.js";
 
 // Creat new Post
 export const createPost = async (req, res) => {
-  console.log(req.body)
+  console.log(req.body);
   const newPost = new Post(req.body);
   try {
     await newPost.save();
@@ -124,8 +124,19 @@ export const getTimelinePosts = async (req, res) => {
   }
 };
 
+export const getCommentsByPostId = async (req, res) => {
+  const {id} = req.params
+  try {
+    const post = await Post.findById(id);
+    res.status(200).json({ data: post.comments });
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
 export const createComment = async (req, res) => {
   const postId = req.params.id;
+  console.log(req.body);
   try {
     const post = await Post.findById(postId);
     await post.comments.unshift(req.body);
@@ -143,7 +154,9 @@ export const deleteComment = async (req, res) => {
   const commentId = req.params.comment_id;
   try {
     const post = await Post.findById(postId);
-    const commentIndex = post.comments.findIndex((comment) => (comment._id).toString() === commentId);
+    const commentIndex = post.comments.findIndex(
+      (comment) => comment._id.toString() === commentId
+    );
     const comment = post.comments[commentIndex];
     if (comment.userId === userId) {
       // console.log(comment)

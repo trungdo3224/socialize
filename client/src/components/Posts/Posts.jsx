@@ -11,7 +11,7 @@ const Posts = () => {
   const params = useParams()
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.authReducer.authData);
-  let { posts, loading, comments } = useSelector((state) => state.postReducer);
+  let { posts, loading } = useSelector((state) => state.postReducer);
 
 
 
@@ -25,7 +25,7 @@ const Posts = () => {
       {loading ? <h2>Loading Posts...</h2>
         :
         posts?.map((post, id) => {
-          return <Post key={Math.random(id)} comments={comments.filter(comment => comment.postId === post._id)} post={post} />
+          return <Post key={Math.random(id)}  post={post} />
         })}
     </div>
   )

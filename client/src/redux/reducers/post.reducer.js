@@ -8,6 +8,12 @@ const initialState = {
   uploading: false,
 };
 
+// function insertComment(array, data) {
+//   let newArray = array.slice();
+//   newArray.unshift(data);
+//   return newArray;
+// }
+
 const postReducer = (state = initialState, action) => {
   switch (action.type) {
     // belongs to PostShare.jsx
@@ -36,13 +42,25 @@ const postReducer = (state = initialState, action) => {
       return { ...state, error: true, loading: false };
 
     // Comment Post
+    case POST_ACTION_TYPES.FETCH_COMMENT_START:
+      return { ...state };
+    case POST_ACTION_TYPES.FETCH_COMMENT_SUCCESS:
+      // const commentsByPost = action.payload;
+      const { payload } = action;
+      return {
+        ...state,
+        comments: [...payload.data],
+      };
+    case POST_ACTION_TYPES.FETCH_COMMENT_FAIL:
+      return { ...state };
     case POST_ACTION_TYPES.COMMENT_START:
       return { ...state };
     case POST_ACTION_TYPES.COMMENT_SUCCESS:
-      const comments = action.payload;
+      // const comments = action.payload;
+      console.log(action.payload);
       return {
         ...state,
-        comments: [comments[0], ...state.comments],
+        comments: [...action.payload],
         loading: false,
         error: false,
       };
@@ -50,16 +68,24 @@ const postReducer = (state = initialState, action) => {
       return { ...state, error: true, loading: false };
 
     case POST_ACTION_TYPES.DELETE_COMMENT:
-      return { 
+      return {
         ...state,
-        comments: [...state.comments].filter((comment) => comment._id !== action.payload)
+        comments: [
+          ...state.comments.filter((comment) => comment._id !== action.payload),
+        ],
       };
     // Fetch
     case POST_ACTION_TYPES.RETREIVING_START:
       return { ...state, loading: true, error: false };
     case POST_ACTION_TYPES.RETREIVING_SUCCESS:
       const { data } = action.data;
-      return { ...state, posts: data, comments:data.comments, loading: false, error: false };
+      return {
+        ...state,
+        posts: data,
+        comments: data.comments,
+        loading: false,
+        error: false,
+      };
     case POST_ACTION_TYPES.RETREIVING_FAIL:
       return { ...state, loading: false, error: true };
     default:

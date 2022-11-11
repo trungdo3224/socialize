@@ -45,6 +45,17 @@ export const deletePost = (id, userId) => async (dispatch) => {
   }
 };
 
+export const getPostCommentsById = (id) => async (dispatch) => {
+  dispatch({ type: POST_ACTION_TYPES.FETCH_COMMENT_START });
+  console.log('GET COMMENTS')
+  try {
+    const response = await postApi.getCommentsByPost(id);
+    dispatch({ type: POST_ACTION_TYPES.FETCH_COMMENT_SUCCESS, payload: response.data });
+  } catch (error) {
+    dispatch({ type: POST_ACTION_TYPES.FETCH_COMMENT_FAIL });
+  }
+};
+
 export const commentPost = (postId, userId) => async (dispatch) => {
   dispatch({ type: POST_ACTION_TYPES.COMMENT_START });
   try {
@@ -58,8 +69,7 @@ export const commentPost = (postId, userId) => async (dispatch) => {
   }
 };
 
-export const deletePostComment =
-  (id, user_id, comment_id) => async (dispatch) => {
+export const deletePostComment = (id, user_id, comment_id) => async (dispatch) => {
     try {
       await postApi.deleteComment(id, user_id, comment_id);
       dispatch({ type: POST_ACTION_TYPES.DELETE_COMMENT, payload: comment_id });
